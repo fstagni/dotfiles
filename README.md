@@ -1,9 +1,9 @@
 # Federico Stagni Dot Files 
 
 These simple dotfiles are taken from here and there, and then adapted. Sources are:
-[Ryan Bates dotfiles](https://github.com/ryanb/dotfiles)
-[Ome Gak dotfiles](https://github.com/OmeGak/dotfiles/)
-[Matt Stauffer dotfiles](https://github.com/mattstauffer/ohmyzsh-dotfiles)
+* [Ryan Bates dotfiles](https://github.com/ryanb/dotfiles)
+* [Ome Gak dotfiles](https://github.com/OmeGak/dotfiles/)
+* [Matt Stauffer dotfiles](https://github.com/mattstauffer/ohmyzsh-dotfiles)
 
 These are config files to set up a system the way I like it. It uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh).
 
