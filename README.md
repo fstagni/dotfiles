@@ -1,13 +1,18 @@
-# Federico Stagni Dot Files (mostly taken from Ryan Bates Dot Files)
+# Federico Stagni Dot Files 
 
-These are config files to set up a system the way I like it. It now uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh).
+These simple dotfiles are taken from here and there, and then adapted. Sources are:
+[Ryan Bates dotfiles](https://github.com/ryanb/dotfiles)
+[Ome Gak dotfiles](https://github.com/OmeGak/dotfiles/)
+[Matt Stauffer dotfiles](https://github.com/mattstauffer/ohmyzsh-dotfiles)
+
+These are config files to set up a system the way I like it. It uses [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh).
 
 I am running on Ubuntu. I don't see why it would not work anywhere else.
 
 
 ## Installation
 
-Run the following commands in your terminal. It is very simple, and it's not destructive. Check out the [Rakefile](https://github.com/fstagni/dotfiles/blob/install.sh) to see exactly what it does.
+Run the following commands in your terminal. It is very simple, and it's not destructive. Check out the [install.sh](https://github.com/fstagni/dotfiles/blob/master/install.sh) to see exactly what it does.
 
 ```terminal
 git clone git://github.com/ryanb/dotfiles ~/.dotfiles
