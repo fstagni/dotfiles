@@ -1,6 +1,6 @@
 [user]
   name = Federico Stagni
-  email = my@email.com
+  email = federico.stagni@cern.ch 
 
 [alias]
   # View abbreviated SHA, description, and history graph of the latest 20 commits
