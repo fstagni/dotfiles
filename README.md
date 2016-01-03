@@ -31,19 +31,6 @@ Feel free to customize the .zshrc file to match your preference.
 
 ## Uninstall
 
-To remove the dotfile configs, run the following commands. Be certain to double check the contents of the files before removing so you don't lose custom settings.
-
-```
-unlink ~/.bin
-unlink ~/.gitignore
-unlink ~/.gvimrc
-unlink ~/.vim
-unlink ~/.vimrc
-rm ~/.zshrc # careful here
-rm ~/.gitconfig
-rm -rf ~/.dotfiles
-rm -rf ~/.oh-my-zsh
-chsh -s /bin/bash # change back to Bash if you want
-```
+To remove the dotfile configs, run the following command in your terminal. Check out the [uninstall.sh](https://github.com/fstagni/dotfiles/blob/master/uninstall.sh) to see exactly what it does. Be certain to double check the contents of the files before removing so you don't lose custom settings.
 
 Then open a new terminal window to see the effects.
