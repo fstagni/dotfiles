@@ -19,14 +19,21 @@ git clone git://github.com/fstagni/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
+This may spit some errors, because I am lazy and I didn't fix everything. Nevertheless it should work. After installing, open a new terminal window to see the effects.
 
-After installing, open a new terminal window to see the effects.
+Feel free to customize the .zshrc file to match your preference. Alternatively, you can link a configuration file from the directory
 
-Feel free to customize the .zshrc file to match your preference.
+```terminal
+~/.oh-my-zsh/lib/
+```
+
+which is how I've done it myself.
 
 
 ## Features
+There are some shortcuts for git, see the [gitconfig](https://github.com/fstagni/dotfiles/blob/master/gitconfig) file.
 
+I also added some aliases for LHCb. There's a 'secrets.zsh' file that is needed to be filled, if you want to actually use them.
 
 
 ## Uninstall
