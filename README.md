@@ -15,7 +15,7 @@ I am running on Ubuntu. I don't see why it would not work anywhere else.
 Run the following commands in your terminal. It is very simple, and it's not destructive. Check out the [install.sh](https://github.com/fstagni/dotfiles/blob/master/install.sh) to see exactly what it does.
 
 ```terminal
-git clone git://github.com/ryanb/dotfiles ~/.dotfiles
+git clone git://github.com/fstagni/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
