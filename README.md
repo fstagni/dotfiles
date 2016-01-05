@@ -33,7 +33,7 @@ which is how I've done it myself.
 ## Features
 There are some shortcuts for git, see the [gitconfig](https://github.com/fstagni/dotfiles/blob/master/gitconfig) file.
 
-I also added some aliases for LHCb. There's a 'secrets.zsh' file that is needed to be filled, if you want to actually use them.
+I also added some aliases for LHCb. There's a 'secrets.zsh' file that is needed to be filled, starting from the given template, if you want to actually use them (secrets.zsh is in .gitignore).
 
 
 ## Uninstall
