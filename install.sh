@@ -12,7 +12,7 @@ do
 done
 
 #Fixing paths and aliases for oh-my-zsh
-for f in 'paths.zsh' 'aliases.zsh' 'lhcb.zsh' 'secrets.zsh'
+for f in 'paths.zsh' 'aliases.zsh' 'lhcb.zsh' 'secrets.zsh' 'dirac.zsh'
 do
   ln -s $PWD/$f ~/.oh-my-zsh/lib/$f
 done
