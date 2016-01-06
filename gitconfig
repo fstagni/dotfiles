@@ -19,8 +19,8 @@
   pu = push origin
   # fetch from upstream
   f = fetch upstream
-  # Clone a repository including all submodules
-  c = clone --recursive
+  # Checkout
+  co = checkout
   # Commit all changes
   ca = !git add -A && git commit -av
   # Switch to a branch, creating it if necessary
