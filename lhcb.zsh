@@ -64,7 +64,7 @@ alias cernvmci='ssh dirac@lhcbci-cernvm02.cern.ch'
 alias cernvmci-mp='ssh dirac@lhcbci-cernvm-mp-01.cern.ch'
 
 #DBs
-alias dbodProd='mysql -u$DIRACUSER -pPWD$DIRACPWD -hdbod-lbprod.cern.ch -P5501'
+alias dbodProd='mysql -u$DIRACUSER -p$DIRACPWD -hdbod-lbprod.cern.ch -P5501'
 alias dbodWMS='mysql -u$DIRACUSER -p$DIRACPWD -hdbod-lbwms.cern.ch -P5506'
 alias dbodDFC='mysql -u$DIRACUSER -p$DIRACPWD -hdbod-dfc.cern.ch -P5502'
 alias dbodWMSAcc='mysql -u$DIRACUSER -p$DIRACPWD -hdbod-lbwmsacc.cern.ch -P5516'
