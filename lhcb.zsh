@@ -58,6 +58,7 @@ alias certMachine2='ssh $CERNUSER@aiadm.cern.ch -t ssh lbtestvobox2'
 
 #DIRAC build machines
 alias lhcbci99='ssh $CERNUSER@aiadm.cern.ch -t ssh lhcbci99'
+alias lhcbci97='ssh $CERNUSER@aiadm.cern.ch -t ssh lhcbci97'
 alias lhcbci12='ssh $CERNUSER@aiadm.cern.ch -t ssh lhcbci12'
 alias lhcbci11='ssh $CERNUSER@aiadm.cern.ch -t ssh lhcbci11'
 alias cernvmci='ssh dirac@lhcbci-cernvm02.cern.ch'
