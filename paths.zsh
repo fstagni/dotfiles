@@ -1,4 +1,4 @@
-export PYTHONPATH=$PYTHONPATH:$HOME/LHCbCode/
-export PATH=$PATH:$HOME/LHCbCode/scripts/
+export PYTHONPATH=$PYTHONPATH:$DIRACCODE/LHCbDIRAC:$DIRACCODE
+export PATH=$PATH:$DIRACCODE/scripts
 
 export PAGER="/usr/bin/most -s" 

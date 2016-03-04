@@ -50,6 +50,7 @@ alias lbvobox40='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox40'
 alias lbvobox41='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox41'
 alias lbvobox42='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox42'
 alias lbvobox43='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox43'
+alias lbvobox47='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox47'
 alias lbvobox80='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox80'
 alias lbvobox81='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox81'
 #DIRAC certification voboxes
