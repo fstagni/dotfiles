@@ -1,4 +1,4 @@
-export PYTHONPATH=$PYTHONPATH:$DIRACCODE/LHCbDIRAC:$DIRACCODE
-export PATH=$PATH:$DIRACCODE/scripts
+export PYTHONPATH=$PYTHONPATH:$HOME/pyDevs/LHCbDIRAC:$HOME/pyDevs
+export PATH=$PATH:$HOME/pyDevs/scripts
 
 export PAGER="/usr/bin/most -s" 
