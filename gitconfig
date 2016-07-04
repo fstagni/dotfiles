@@ -16,7 +16,7 @@
   # Pull in remote changes for the current repository and all its submodules
   p = !"git pull; git submodule foreach git pull origin master"
   # push to origin the current branch
-  pu = push origin `git rev-parse --abbrev-ref HEAD`
+  pu = "push origin `git rev-parse --abbrev-ref HEAD`"
   # fetch from upstream
   f = fetch upstream
   # Checkout

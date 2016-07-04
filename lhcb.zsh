@@ -53,6 +53,17 @@ alias lbvobox43='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox43'
 alias lbvobox47='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox47'
 alias lbvobox80='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox80'
 alias lbvobox81='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox81'
+
+alias lbvobox100='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox100'
+alias lbvobox101='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox101'
+alias lbvobox102='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox102'
+alias lbvobox103='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox103'
+alias lbvobox104='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox104'
+alias lbvobox105='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox105'
+alias lbvobox106='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox106'
+alias lbvobox107='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox107'
+alias lbvobox108='ssh $CERNUSER@aiadm.cern.ch -t ssh lbvobox108'
+
 #DIRAC certification voboxes
 alias certMachine='ssh $CERNUSER@aiadm.cern.ch -t ssh lbtestvobox'
 alias certMachine2='ssh $CERNUSER@aiadm.cern.ch -t ssh lbtestvobox2'
