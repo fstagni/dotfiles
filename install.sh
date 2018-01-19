@@ -8,7 +8,7 @@ mkdir ~/.dotfiles-old/
 for f in 'zshrc' 'vimrc' 'gvimrc' 'vim' 'gitconfig' 'global-gitignore' 
 do
   mv ~/.$f ~/.dotfiles-old/
-  ln -s $PWD/$f ~/.$f
+  ln -s $HOME/.dotfiles/$f ~/.$f
 done
 
 #Fixing paths and aliases for oh-my-zsh

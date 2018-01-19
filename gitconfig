@@ -11,12 +11,15 @@
   d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
   # `git di $number` shows the diff between the state `$number` revisions ago and the current state
   di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  # Show the diff between the latest commit and the current state ignoring white spaces
+  dw = diff --ignore-space-at-eol -b -w --ignore-blank-lines
   # diff tool
   dt = difftool --dir-diff --gui
   # Pull in remote changes for the current repository and all its submodules
   p = !"git pull; git submodule foreach git pull origin master"
   # push to origin the current branch
-  pu = "push origin `git rev-parse --abbrev-ref HEAD`"
+  pu = "push origin"
+  #`git rev-parse --abbrev-ref HEAD`"
   # fetch from upstream
   f = fetch upstream
   # Checkout

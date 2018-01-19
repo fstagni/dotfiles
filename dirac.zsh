@@ -1,6 +1,7 @@
 #virtualenvwrapper stuff
 export WORKON_HOME=~/Env
-source /usr/local/bin/virtualenvwrapper.sh
+source /home/fstagni/.local/bin/virtualenvwrapper.sh
+#source /usr/local/bin/virtualenvwrapper.sh
 alias initD="cd $HOME/pyDevs/DIRAC && workon DIRACGrid && pip install -r requirements.txt --upgrade"
 
 #release stuff
