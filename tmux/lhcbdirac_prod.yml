@@ -1,0 +1,133 @@
+session_name: lhcbdirac_prod
+windows:
+  - window_name: monit
+    layout: tiled
+    panes:
+      - htop
+      - shell_command:
+        - cd /tmp
+        - rm -Rf LHCbDIRACProd
+        - mkdir LHCbDIRACProd
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+        - sleep 240
+        - docker cp usercert.pem LHCbDIRAC_Prod_client:/root/.globus/
+        - docker cp userkey.pem LHCbDIRAC_Prod_client:/root/.globus/
+        - docker cp usercert.pem LHCbDIRAC-prod:/root/.globus/
+        - docker cp userkey.pem LHCbDIRAC-prod:/root/.globus/
+        - rm -Rf usercert.pem userkey.pem 
+
+  - window_name: clients
+    layout: tiled
+    panes:
+      - sshpass -f /tmp/.passwd ssh -t fstagni@lxplus.cern.ch 'source /cvmfs/lhcb.cern.ch/lib/etc/cern_profile.sh && lb-dirac && fish'
+      - shell_command:
+        - docker container rm LHCbDIRAC_Prod_client
+        - sleep 20
+        - docker run -it --name LHCbDIRAC_Prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
+        - PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
+
+
+  # code in /tmp
+  - window_name: dev
+    layout: tiled
+    panes:
+      - shell_command:
+        - sleep 10
+        - cd /tmp/LHCbDIRACProd
+        - conda activate dirac-development
+        - git clone git@github.com:DIRACGrid/DIRAC.git
+        - cd DIRAC
+        - git co rel-v8r0
+      - shell_command:
+        - sleep 10
+        - cd /tmp/LHCbDIRACProd
+        - conda activate dirac-development
+        - git clone ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
+        - cd LHCbDIRAC
+        - git co master
+
+  # All servers
+  - window_name: 'EL7__00-01-02-03'
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox300.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox301.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox302.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox303.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+
+  - window_name: 'EL7__04-05-06-07'
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox304.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox305.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox306.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox307.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+  
+  - window_name: 'EL7__08-09-10-11'
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox308.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox309.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox310.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox311.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+
+  - window_name: 'EL7__12-13-14-15_16'
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox312.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox313.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox314.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox315.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox316.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear

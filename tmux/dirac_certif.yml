@@ -1,0 +1,41 @@
+session_name: dirac_certif
+windows:
+  - window_name: monit
+    layout: tiled
+    panes:
+      - htop
+      - shell_command:
+        - cd /tmp
+        - rm -Rf DIRACCertif
+        - mkdir DIRACCertif
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+        - sleep 240
+        - docker cp usercert.pem DIRAC_certif_client:/root/.globus/
+        - docker cp userkey.pem DIRAC_certif_client:/root/.globus/
+        - rm -Rf usercert.pem userkey.pem 
+
+  - window_name: client
+    layout: tiled
+    panes:
+      - shell_command:
+        - docker container rm DIRAC_certif_client
+        - sleep 20
+        - docker run -it --name DIRAC_certif_client --mount type=bind,source=/tmp/DIRACCertif/DIRAC,target=/code/DIRAC almalinux
+        - PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && mkdir ~/.globus
+      - shell_command:
+        - sleep 10
+        - cd /tmp/DIRACCertif
+        - conda activate dirac-development
+        - git clone git@github.com:DIRACGrid/DIRAC.git
+        - cd DIRAC
+        - git co integration
+
+  - window_name: server
+    layout: tiled
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh lbcertifdirac70.cern.ch
+        - PS1="\[\033[0;33m\]\t \[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w \[\033[0m\] \n \[\033[0;33m\]|-> \[\033[0m\]"
+        - cd /opt/dirac/
+        - clear

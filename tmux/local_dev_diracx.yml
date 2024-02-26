@@ -1,0 +1,22 @@
+session_name: local_dev_diracx
+windows:
+  - window_name: monit
+    layout: tiled
+    shell_command_before:
+      - cd ~/
+    panes:
+      - htop
+      -
+
+  - window_name: diracx
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate diracx-dev
+    panes:
+      - shell_command:
+        - cd diracx
+        - git f
+      - shell_command:  
+        - cd diracx-charts
+        - git f

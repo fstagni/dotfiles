@@ -1,0 +1,56 @@
+session_name: local_dev_DIRAC
+windows:
+  - window_name: monit
+    layout: tiled
+    shell_command_before:
+      - cd ~/
+    panes:
+      - htop
+      - shell_command:
+        - code ~/Devs/DIRACGrid/DIRAC.code-workspace
+        - code ~/Devs/DIRACGrid/Pilot.code-workspace
+
+  - window_name: DIRAC
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate dirac-development
+    panes:
+      - shell_command:
+        - cd DIRAC
+        - git f
+        - git co upstream/integration
+      - shell_command:  
+        - cd WebAppDIRAC
+        - git f
+        - git co upstream/integration
+
+  - window_name: LHCbDIRAC
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate dirac-development
+    panes:
+      - shell_command:
+        - cd LHCbDIRAC
+        - git f
+        - git co upstream/devel
+      - shell_command:  
+        - cd LHCbWebDIRAC
+        - git f
+        - git co upstream/devel
+
+  - window_name: Pilot
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate Pilot
+    panes:
+      - shell_command:
+        - cd Pilot
+        - git f
+        - git co upstream/devel
+      - shell_command:  
+        - cd LHCbPilot
+        - git f
+        - git co upstream/devel

@@ -1,0 +1,49 @@
+session_name: lhcbdirac_clients
+windows:
+  - window_name: monit
+    layout: tiled
+    panes:
+      - htop
+      - shell_command:
+        - cd /tmp
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+        - sleep 240
+        - docker cp usercert.pem LHCbDIRAC-prod-client:/root/.globus/
+        - docker cp userkey.pem LHCbDIRAC-prod-client:/root/.globus/
+        - rm -Rf usercert.pem userkey.pem 
+
+  - window_name: clients
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t fstagni@lxplus.cern.ch fish
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t fstagni@lxplus.cern.ch 'source /cvmfs/lhcb.cern.ch/lib/etc/cern_profile.sh; lb-dirac'
+      - shell_command:
+        - docker container rm LHCbDIRAC-prod-client
+        - sleep 20
+        - docker run -it --name LHCbDIRAC-prod-client --mount type=bind,source=/tmp/LHCbDIRACProdClient/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProdClient/LHCbDIRAC,target=/code/LHCbDIRAC ubuntu
+        - PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && apt update && apt upgrade -y && apt install -y curl && apt install -y vim && apt install -y git && apt install -y python && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
+
+
+  # client + code in /tmp
+  - window_name: local client
+    layout: tiled
+    panes:
+      - shell_command:
+        - mkdir -p /tmp/LHCbDIRACProdClient
+        - cd /tmp/LHCbDIRACProdClient
+        - conda activate dirac-development
+        - rm -Rf DIRAC
+        - git clone git@github.com:DIRACGrid/DIRAC.git
+        - cd DIRAC
+        - git co rel-v8r0
+      - shell_command:
+        - mkdir -p /tmp/LHCbDIRACProdClient
+        - cd /tmp/LHCbDIRACProdClient
+        - conda activate dirac-development
+        - rm -Rf LHCbDIRAC
+        - git clone ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
+        - cd LHCbDIRAC
+        - git co master
