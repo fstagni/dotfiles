@@ -1,0 +1,93 @@
+[user]
+  name = Federico Stagni
+  email = federico.stagni@cern.ch 
+
+[alias]
+  # View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+  # View the current working tree status using the short format
+  s = status
+  # Show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+  # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+  di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+  # Show the diff between the latest commit and the current state ignoring white spaces
+  dw = diff --ignore-space-at-eol -b -w --ignore-blank-lines
+  # diff tool
+  dt = difftool --dir-diff --gui
+  # show tool
+  st = "!showci () { rev=${1:-HEAD}; git difftool --dir-diff --gui $rev~1 $rev; }; showci $1"
+  # Pull in remote changes for the current repository and all its submodules
+  p = !"git pull; git submodule foreach git pull origin master"
+  # push to origin the current branch
+  pu = "push origin"
+  #`git rev-parse --abbrev-ref HEAD`"
+  # fetch from upstream
+  f = fetch upstream
+  # Checkout
+  co = checkout
+  # Commit all changes
+  ca = !git add -A && git commit -av
+  # Switch to a branch, creating it if necessary
+  go = checkout -B
+  # Show verbose output about tags, branches or remotes
+  tags = tag -l
+  branches = branch -a
+  remotes = remote -v
+  # Credit an author on the latest commit
+  credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+  # Interactive rebase with the given number of latest commits
+  reb = "!r() { git rebase -i HEAD~$1; }; r"
+  # Git commit + git rebase interactively 2
+  rebx = !git add -A && git commit -av -m "fix" && git reb 2# && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"
+  # Generate a changelog
+  changelog = "!_() { t=$(git describe --abbrev=0 --tags); git --no-pager log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
+  #lola
+  lola = log --graph --decorate=full --pretty=oneline --abbrev-commit --all
+  # Squash the last two commits into one.
+  # Keep the commit message of the first commit.
+  # Amend the commit.
+  squash-last-two = !sh -c 'git reset --soft HEAD~2 && git commit --edit -m \"$(git log --format=%B --reverse HEAD..HEAD@{1})\"'
+  # Commit and squash in the previous one
+  cs = !sh -c 'git ca -m "f" && git squash-last-two'
+  # Force-push the current branch to origin	
+  fp = !git push --force-with-lease origin $(git rev-parse --abbrev-ref HEAD)
+
+
+[apply]
+  # Detect whitespace errors when applying a patch
+  whitespace = fix
+
+[core]
+  editor = vim
+  # Use custom `.gitignore`
+	excludesFile = ~/.gitignore
+  # Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
+  # whitespace = space-before-tab,indent-with-non-tab,trailing-space
+[diff]
+  tool = meld
+  guitool = meld
+[color]
+  # Use colors in Git commands that are capable of colored output when outputting to the terminal
+  ui = auto
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+[merge]
+  # Include summaries of merged commits in newly created merge commit messages
+  log = true
+
+# Use `origin` as the default remote on the `master` branch in all cases
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
