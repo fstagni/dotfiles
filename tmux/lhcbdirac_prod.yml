@@ -131,3 +131,15 @@ windows:
         - sshpass -f /tmp/.passwd ssh -t lbvobox316.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
+
+  - window_name: 'EL9__00_01'
+    layout: even-vertical
+    panes:
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox900.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear
+      - shell_command:
+        - sshpass -f /tmp/.passwd ssh -t lbvobox901.cern.ch
+        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+        - clear

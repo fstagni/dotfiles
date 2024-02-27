@@ -4,7 +4,7 @@ end
 
 starship init fish | source
 
-alias ll 'eza -al --icons'
+alias ll 'eza --hyperlink -al --icons'
 alias ghist 'history|grep'
 alias vi nvim
 alias ipy ipython
