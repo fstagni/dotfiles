@@ -27,9 +27,8 @@ windows:
         - sleep 10
         - cd /tmp/DIRACCertif
         - conda activate dirac-development
-        - git clone git@github.com:DIRACGrid/DIRAC.git
+        - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git
         - cd DIRAC
-        - git co integration
 
   - window_name: server
     layout: tiled

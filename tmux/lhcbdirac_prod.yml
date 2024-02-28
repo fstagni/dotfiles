@@ -24,7 +24,7 @@ windows:
       - shell_command:
         - docker container rm LHCbDIRAC_Prod_client
         - sleep 20
-        - docker run -it --name LHCbDIRAC_Prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
+        - docker run -it --name LHCbDIRAC_Prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC v /cvmfs:/cvmfs:share almalinux
         - PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
 
 
@@ -36,16 +36,14 @@ windows:
         - sleep 10
         - cd /tmp/LHCbDIRACProd
         - conda activate dirac-development
-        - git clone git@github.com:DIRACGrid/DIRAC.git
+        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git
         - cd DIRAC
-        - git co rel-v8r0
       - shell_command:
         - sleep 10
         - cd /tmp/LHCbDIRACProd
         - conda activate dirac-development
-        - git clone ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
+        - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
         - cd LHCbDIRAC
-        - git co master
 
   # All servers
   - window_name: 'EL7__00-01-02-03'
