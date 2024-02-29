@@ -8,10 +8,6 @@ windows:
         - cd /tmp
         - rm -Rf LHCbDIRACCertif
         - mkdir -p LHCbDIRACCertif/dev && mkdir -p LHCbDIRACCertif/prod
-        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACCertif/prod/DIRAC
-        - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACCertif/prod/LHCbDIRAC
-        - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACCertif/dev/DIRAC
-        - git clone --single-branch --branch devel ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACCertif/dev/LHCbDIRAC
         - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
         - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
         - sleep 180
@@ -36,14 +32,18 @@ windows:
     layout: tiled
     panes:
       - shell_command:
+        - sleep 5
         - docker container rm LHCbDIRAC_certif_client_dev
-        - sleep 20
+        - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACCertif/dev/DIRAC
+        - git clone --single-branch --branch devel ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACCertif/dev/LHCbDIRAC
         - docker run -it --name LHCbDIRAC_certif_client_dev --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/LHCbDIRAC,target=/code/LHCbDIRAC -v /cvmfs:/cvmfs:shared almalinux
         - PS1="\[\033[42m\]\[\033[31m\]\u@DEV_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
         - pip install git+https://gitlab.cern.ch/lhcb-simulation/lbmcsubmit.git
       - shell_command:
+        - sleep 5
         - docker container rm LHCbDIRAC_certif_client_prod
-        - sleep 20
+        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACCertif/prod/DIRAC
+        - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACCertif/prod/LHCbDIRAC
         - docker run -it --name LHCbDIRAC_certif_client_prod --mount type=bind,source=/tmp/LHCbDIRACCertif/prod/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACCertif/prod/LHCbDIRAC,target=/code/LHCbDIRAC -v /cvmfs:/cvmfs:shared almalinux
         - PS1="\[\033[44m\]\[\033[22m\]\u@PROD_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install LHCbDIRAC && mkdir ~/.globus
         - pip install git+https://gitlab.cern.ch/lhcb-simulation/lbmcsubmit.git
