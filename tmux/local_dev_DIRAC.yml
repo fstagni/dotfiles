@@ -19,10 +19,12 @@ windows:
       - shell_command:
         - cd DIRAC
         - git f
+        - git fetch origin
         - git co upstream/integration
       - shell_command:  
         - cd WebAppDIRAC
         - git f
+        - git fetch origin
         - git co upstream/integration
 
   - window_name: LHCbDIRAC
@@ -34,10 +36,12 @@ windows:
       - shell_command:
         - cd LHCbDIRAC
         - git f
+        - git fetch origin
         - git co upstream/devel
       - shell_command:  
         - cd LHCbWebDIRAC
         - git f
+        - git fetch origin
         - git co upstream/devel
 
   - window_name: Pilot
@@ -49,8 +53,10 @@ windows:
       - shell_command:
         - cd Pilot
         - git f
+        - git fetch origin
         - git co upstream/devel
       - shell_command:  
         - cd LHCbPilot
         - git f
+        - git fetch origin
         - git co upstream/devel
