@@ -8,7 +8,6 @@ windows:
       - htop
       - shell_command:
         - code ~/Devs/DIRACGrid/DIRAC.code-workspace
-        - code ~/Devs/DIRACGrid/Pilot.code-workspace
 
   - window_name: DIRAC
     layout: tiled
@@ -22,27 +21,27 @@ windows:
         - git fetch origin
         - git co upstream/integration
       - shell_command:  
-        - cd WebAppDIRAC
-        - git f
-        - git fetch origin
-        - git co upstream/integration
-
-  - window_name: LHCbDIRAC
-    layout: tiled
-    shell_command_before:
-      - cd ~/Devs/DIRACGrid
-      - conda activate dirac-development
-    panes:
-      - shell_command:
         - cd LHCbDIRAC
         - git f
         - git fetch origin
         - git co upstream/devel
-      - shell_command:  
-        - cd LHCbWebDIRAC
+
+  - window_name: DiracX
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate diracx-dev
+    panes:
+      - shell_command:
+        - cd diracx
         - git f
         - git fetch origin
-        - git co upstream/devel
+        - git co upstream/main
+      - shell_command:  
+        - cd diracx-charts
+        - git f
+        - git fetch origin
+        - git co upstream/master
 
   - window_name: Pilot
     layout: tiled
