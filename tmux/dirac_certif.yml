@@ -7,9 +7,9 @@ windows:
       - shell_command:
         - cd /tmp
         - rm -Rf DIRACCertif
-        - mkdir -p LHCbDIRACCertif/dev && mkdir -p LHCbDIRACCertif/prod
-        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
-        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+        - mkdir -p DIRACCertif/dev && mkdir -p DIRACCertif/prod && mkdir -p DIRACCertif/diracx
+        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
         - sleep 240
         - docker cp usercert.pem DIRAC_certif_client_dev:/root/.globus/
         - docker cp userkey.pem DIRAC_certif_client_dev:/root/.globus/
@@ -21,23 +21,28 @@ windows:
     layout: tiled
     panes:
       - shell_command:
-        - sleep 60
+        - sleep 5
         - conda activate dirac-development
+        - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/dev/DIRAC
+        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/prod/DIRAC
         - cd /tmp/DIRACCertif/dev/DIRAC
+      - shell_command:
+        - sleep 5
+        - conda activate diracx-dev
+        - git clone --single-branch --branch main git@github.com:DIRACGrid/diracx.git /tmp/DIRACCertif/diracx
+        - cd /tmp/DIRACCertif/diracx
 
   - window_name: clients
     layout: tiled
     panes:
       - shell_command:
-        - sleep 5
+        - sleep 60
         - docker container rm DIRAC_certif_client_dev
-        - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/dev/DIRAC
-        - docker run -it --name DIRAC_certif_client_dev --mount type=bind,source=/tmp/DIRACCertif/dev/DIRAC,target=/code/DIRAC almalinux
-        - ulimit -n 1048575 && PS1="\[\033[42m\]\[\033[31m\]\u@DEV_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e /code/DIRAC/ && mkdir ~/.globus
+        - docker run -it --name DIRAC_certif_client_dev --mount type=bind,source=/tmp/DIRACCertif/dev/DIRAC,target=/code/DIRAC  --mount type=bind,source=/tmp/DIRACCertif/diracx,target=/code/diracx almalinux
+        - ulimit -n 1048575 && PS1="\[\033[42m\]\[\033[31m\]\u@DEV_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e /code/DIRAC/  && pip install -e /code/diracx && mkdir ~/.globus
       - shell_command:
-        - sleep 5
+        - sleep 60
         - docker container rm DIRAC_certif_client_prod
-        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/prod/DIRAC
         - docker run -it --name DIRAC_certif_client_prod --mount type=bind,source=/tmp/DIRACCertif/prod/DIRAC,target=/code/DIRAC almalinux
         - ulimit -n 1048575 && PS1="\[\033[44m\]\[\033[22m\]\u@PROD_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e /code/DIRAC/ && mkdir ~/.globus
 
@@ -45,7 +50,7 @@ windows:
     layout: tiled
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh lbcertifdirac70.cern.ch
+        - ssh lbcertifdirac70.cern.ch
         - PS1="\[\033[0;33m\]\t \[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w \[\033[0m\] \n \[\033[0;33m\]|-> \[\033[0m\]"
         - cd /opt/dirac/
         - clear
