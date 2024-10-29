@@ -4,7 +4,7 @@ Host *
 Host lxtunnel.cern.ch lxplus.cern.ch aiadm.cern.ch lxtunnel lxplus aiadm
     User fstagni 
     # if your client is configured for Kerberos
-    PreferredAuthentications gssapi-with-mic,gssapi,password
+    PreferredAuthentications gssapi-with-mic,gssapi,keyboard-interactive
     GSSAPIDelegateCredentials yes
     GSSAPIAuthentication yes
     GSSAPITrustDns yes
