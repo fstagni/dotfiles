@@ -20,6 +20,3 @@ eval /home/fstagni/mambaforge/bin/conda "shell.fish" hook $argv | source
 # Created by `pipx` on 2024-05-21 14:14:20
 set PATH $PATH /home/fstagni/.local/bin
 
-# bass
-load_nvm > /dev/stderr
-
