@@ -3,7 +3,7 @@ windows:
   - window_name: monit
     layout: tiled
     panes:
-      - htop
+      - 
       - shell_command:
         - cd /tmp
         - rm -Rf DIRACCertif
