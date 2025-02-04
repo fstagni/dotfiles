@@ -44,7 +44,7 @@ windows:
         - docker container rm LHCbDIRAC_certif_client_dev
         - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACCertif/dev/DIRAC
         - git clone --single-branch --branch devel ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACCertif/dev/LHCbDIRAC
-        - git clone --single-branch --branch master git@github.com:DIRACGrid/diracx.git /tmp/LHCbDIRACCertif/dev/diracx
+        - git clone --single-branch --branch main git@github.com:DIRACGrid/diracx.git /tmp/LHCbDIRACCertif/dev/diracx
         - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/lhcbdiracx.git /tmp/LHCbDIRACCertif/dev/lhcbdiracx
         - docker run -it --name LHCbDIRAC_certif_client_dev --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/LHCbDIRAC,target=/code/LHCbDIRAC --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/diracx,target=/code/diracx --mount type=bind,source=/tmp/LHCbDIRACCertif/dev/lhcbdiracx,target=/code/lhcbdiracx almalinux
         - ulimit -n 1048575 && PS1="\[\033[42m\]\[\033[31m\]\u@DEV_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && pip install -e code/diracx/ && pip install -e code/lhcbdiracx/ && mkdir ~/.globus
