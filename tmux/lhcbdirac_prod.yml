@@ -8,8 +8,8 @@ windows:
         - cd /tmp
         - rm -Rf LHCbDIRACProd
         - mkdir LHCbDIRACProd
-        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
-        - sshpass -f /tmp/.passwd scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
         - sleep 240
         - docker cp usercert.pem LHCbDIRAC_Prod_client:/root/.globus/
         - docker cp userkey.pem LHCbDIRAC_Prod_client:/root/.globus/
@@ -20,7 +20,7 @@ windows:
   - window_name: clients
     layout: tiled
     panes:
-      - sshpass -f /tmp/.passwd ssh -t fstagni@lxplus.cern.ch 'source /cvmfs/lhcb.cern.ch/lib/etc/cern_profile.sh && lb-dirac && fish'
+      - ssh -t fstagni@lxplus.cern.ch 'source /cvmfs/lhcb.cern.ch/lib/etc/cern_profile.sh && lb-dirac && fish'
       - shell_command:
         - docker container rm LHCbDIRAC_Prod_client
         - sleep 20
@@ -50,19 +50,19 @@ windows:
     layout: even-vertical
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox300.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox300.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox301.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox301.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox302.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox302.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox303.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox303.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
 
@@ -70,19 +70,19 @@ windows:
     layout: even-vertical
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox304.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox304.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox305.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox305.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox306.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox306.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox307.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox307.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
   
@@ -90,19 +90,19 @@ windows:
     layout: even-vertical
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox308.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox308.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox309.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox309.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox310.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox310.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox311.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox311.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
 
@@ -110,23 +110,23 @@ windows:
     layout: even-vertical
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox312.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox312.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox313.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox313.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox314.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox314.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox315.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox315.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox316.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox316.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
 
@@ -134,10 +134,10 @@ windows:
     layout: even-vertical
     panes:
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox900.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox900.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
       - shell_command:
-        - sshpass -f /tmp/.passwd ssh -t lbvobox901.cern.ch
+        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox901.cern.ch
         - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
         - clear
