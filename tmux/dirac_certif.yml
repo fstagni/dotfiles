@@ -28,8 +28,8 @@ windows:
         - cd /tmp/DIRACCertif/dev/DIRAC
       - shell_command:
         - sleep 5
-        - conda activate diracx-dev
         - git clone --single-branch --branch main git@github.com:DIRACGrid/diracx.git /tmp/DIRACCertif/diracx
+        - pixi shell
         - cd /tmp/DIRACCertif/diracx
 
   - window_name: clients
