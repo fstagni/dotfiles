@@ -3,38 +3,38 @@ windows:
   - window_name: monit
     layout: tiled
     panes:
-      - 
+      -
       - shell_command:
-        - cd /tmp
-        - rm -Rf LHCbDIRACProd
-        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
-        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
-        - sleep 180
-        - docker cp usercert.pem LHCbDIRAC_prod_client:/root/.globus/
-        - docker cp userkey.pem LHCbDIRAC_prod_client:/root/.globus/
-        - rm -Rf usercert.pem userkey.pem 
+          - cd /tmp
+          - rm -Rf LHCbDIRACProd
+          - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+          - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+          - sleep 180
+          - docker cp usercert.pem LHCbDIRAC_prod_client:/root/.globus/
+          - docker cp userkey.pem LHCbDIRAC_prod_client:/root/.globus/
+          - rm -Rf usercert.pem userkey.pem
 
   - window_name: dev
     layout: tiled
     panes:
       - shell_command:
-        - sleep 60
-        - conda activate dirac-development
-        - cd /tmp/LHCbDIRACProd/DIRAC
+          - sleep 60
+          - conda activate dirac-development
+          - cd /tmp/LHCbDIRACProd/DIRAC
       - shell_command:
-        - sleep 60
-        - conda activate dirac-development
-        - cd /tmp/LHCbDIRACProd/LHCbDIRAC
+          - sleep 60
+          - conda activate dirac-development
+          - cd /tmp/LHCbDIRACProd/LHCbDIRAC
   - window_name: clients
     layout: tiled
     panes:
       - shell_command:
-        - ssh lxplus.cern.ch
+          - ssh lxplus.cern.ch
       - shell_command:
-        - sleep 5
-        - docker container rm LHCbDIRAC_prod_client
-        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACProd/DIRAC
-        - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACProd/LHCbDIRAC
-        - docker run -it --name LHCbDIRAC_prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
-        - ulimit -n 1048575 && PS1="\[\033[44m\]\[\033[22m\]\u@PROD_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
-        - pip install git+https://gitlab.cern.ch/lhcb-simulation/lbmcsubmit.git
+          - sleep 5
+          - docker container rm LHCbDIRAC_prod_client
+          - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/LHCbDIRACProd/DIRAC
+          - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git /tmp/LHCbDIRACProd/LHCbDIRAC
+          - docker run -it --name LHCbDIRAC_prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
+          - ulimit -n 1048575 && PS1="\[\033[44m\]\[\033[22m\]\u@PROD_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
+          - pip install git+https://gitlab.cern.ch/lhcb-simulation/lbmcsubmit.git

@@ -3,59 +3,98 @@ windows:
   - window_name: monit
     layout: tiled
     shell_command_before:
-      - cd ~/
+      - cd
     panes:
       - htop
-      - shell_command:
-        - code ~/Devs/DIRACGrid/DIRAC.code-workspace
+      -
 
   - window_name: DIRAC
     layout: tiled
     shell_command_before:
       - cd ~/Devs/DIRACGrid
       - conda activate dirac-development
+      - cd DIRAC
     panes:
+      - vi
       - shell_command:
-        - cd DIRAC
         - git f
         - git fetch origin
-        - git co upstream/integration
+        - gh pr list
+
+  - window_name: LHCbDIRAC
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - conda activate dirac-development
+      - cd LHCbDIRAC
+    panes:
+      - vi
       - shell_command:  
-        - cd LHCbDIRAC
         - git f
         - git fetch origin
-        - git co upstream/devel
+        - glab mr list
 
   - window_name: DiracX
     layout: tiled
     shell_command_before:
       - cd ~/Devs/DIRACGrid
       - pixi shell
+      - cd diracx
     panes:
+      - vi
       - shell_command:
-        - cd diracx
         - git f
         - git fetch origin
-        - git co upstream/main
+        - gh pr list 
+
+  - window_name: lhcbdiracx
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - pixi shell
+      - cd lhcbdiracx
+    panes:
+      - vi
       - shell_command:  
-        - cd diracx-charts
         - git f
         - git fetch origin
-        - git co upstream/master
+        - glab mr list
+
+  - window_name: DiracX-web
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - pixi shell
+      - cd diracx-web
+    panes:
+      - vi
+      - shell_command:
+        - git f
+        - git fetch origin
+        - gh pr list
+
+  - window_name: diracx-charts
+    layout: tiled
+    shell_command_before:
+      - cd ~/Devs/DIRACGrid
+      - pixi shell
+      - cd diracx-charts
+    panes:
+      - vi
+      - shell_command:
+        - git f
+        - git fetch origin
+        - gih pr list
 
   - window_name: Pilot
     layout: tiled
     shell_command_before:
       - cd ~/Devs/DIRACGrid
       - conda activate Pilot
+      - cd Pilot
     panes:
+      - vi
       - shell_command:
-        - cd Pilot
         - git f
         - git fetch origin
-        - git co upstream/devel
-      - shell_command:  
-        - cd LHCbPilot
-        - git f
-        - git fetch origin
-        - git co upstream/devel
+        - gh pr list
