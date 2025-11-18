@@ -5,139 +5,138 @@ windows:
     panes:
       - htop
       - shell_command:
-        - cd /tmp
-        - rm -Rf LHCbDIRACProd
-        - mkdir LHCbDIRACProd
-        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
-        - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
-        - sleep 240
-        - docker cp usercert.pem LHCbDIRAC_Prod_client:/root/.globus/
-        - docker cp userkey.pem LHCbDIRAC_Prod_client:/root/.globus/
-        - docker cp usercert.pem LHCbDIRAC-prod:/root/.globus/
-        - docker cp userkey.pem LHCbDIRAC-prod:/root/.globus/
-        - rm -Rf usercert.pem userkey.pem 
+          - cd /tmp
+          - rm -Rf LHCbDIRACProd
+          - mkdir LHCbDIRACProd
+          - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/usercert.pem .
+          - scp fstagni@lxplus.cern.ch:/afs/cern.ch/user/f/fstagni/.globus/userkey.pem .
+          - sleep 240
+          - docker cp usercert.pem LHCbDIRAC_Prod_client:/root/.globus/
+          - docker cp userkey.pem LHCbDIRAC_Prod_client:/root/.globus/
+          - docker cp usercert.pem LHCbDIRAC-prod:/root/.globus/
+          - docker cp userkey.pem LHCbDIRAC-prod:/root/.globus/
+          - rm -Rf usercert.pem userkey.pem
 
   - window_name: clients
     layout: tiled
     panes:
       - ssh -t fstagni@lxplus.cern.ch 'source /cvmfs/lhcb.cern.ch/lib/etc/cern_profile.sh && lb-dirac && fish'
       - shell_command:
-        - docker container rm LHCbDIRAC_Prod_client
-        - sleep 20
-        - docker run -it --name LHCbDIRAC_Prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
-        - ulimit -n 1048575 && PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
-
+          - docker container rm LHCbDIRAC_Prod_client
+          - sleep 20
+          - docker run -it --name LHCbDIRAC_Prod_client --mount type=bind,source=/tmp/LHCbDIRACProd/DIRAC,target=/code/DIRAC --mount type=bind,source=/tmp/LHCbDIRACProd/LHCbDIRAC,target=/code/LHCbDIRAC almalinux
+          - PS1="\[\033[42m\]\[\033[31m\]\u@\h:\w\\[\033[00m\]\$ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e code/DIRAC/ && pip install -e code/LHCbDIRAC/ && mkdir ~/.globus
 
   # code in /tmp
   - window_name: dev
     layout: tiled
     panes:
       - shell_command:
-        - sleep 10
-        - cd /tmp/LHCbDIRACProd
-        - conda activate dirac-development
-        - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git
-        - cd DIRAC
+          - sleep 10
+          - cd /tmp/LHCbDIRACProd
+          - conda activate dirac-development
+          - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git
+          - cd DIRAC
       - shell_command:
-        - sleep 10
-        - cd /tmp/LHCbDIRACProd
-        - conda activate dirac-development
-        - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
-        - cd LHCbDIRAC
+          - sleep 10
+          - cd /tmp/LHCbDIRACProd
+          - conda activate dirac-development
+          - git clone --single-branch --branch master ssh://git@gitlab.cern.ch:7999/lhcb-dirac/LHCbDIRAC.git
+          - cd LHCbDIRAC
 
   # All servers
-  - window_name: 'EL7__00-01-02-03'
+  - window_name: "EL7__00-01-02-03"
     layout: even-vertical
     panes:
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox300.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox300.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox301.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox301.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox302.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox302.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox303.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox303.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
 
-  - window_name: 'EL7__04-05-06-07'
+  - window_name: "EL7__04-05-06-07"
     layout: even-vertical
     panes:
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox304.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox304.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox305.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox305.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox306.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox306.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox307.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
-  
-  - window_name: 'EL7__08-09-10-11'
-    layout: even-vertical
-    panes:
-      - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox308.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
-      - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox309.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
-      - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox310.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
-      - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox311.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox307.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
 
-  - window_name: 'EL7__12-13-14-15_16'
+  - window_name: "EL7__08-09-10-11"
     layout: even-vertical
     panes:
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox312.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox308.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox313.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox309.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox314.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox310.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox315.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
-      - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox316.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox311.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
 
-  - window_name: 'EL9__00_01'
+  - window_name: "EL7__12-13-14-15_16"
     layout: even-vertical
     panes:
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox900.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox312.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
       - shell_command:
-        - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox901.cern.ch
-        - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
-        - clear
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox313.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
+      - shell_command:
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox314.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
+      - shell_command:
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox315.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
+      - shell_command:
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox316.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
+
+  - window_name: "EL9__00_01"
+    layout: even-vertical
+    panes:
+      - shell_command:
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox900.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
+      - shell_command:
+          - ssh -J fstagni@lxtunnel.cern.ch fstagni@lbvobox901.cern.ch
+          - PS1="\[\033[0;31m\]\u@\[\033[0;32m\]\h:\[\033[0;36m\]\w$ \[\033[0m\]" && cd /opt/dirac/
+          - clear
