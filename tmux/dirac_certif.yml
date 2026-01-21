@@ -1,9 +1,12 @@
 session_name: dirac_certif
 windows:
-  - window_name: monit
+  - window_name: duties
     layout: tiled
     panes:
-      -
+      - shell_command:
+          - sleep 5
+          - conda activate dirac-development
+          - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/prod/DIRAC
       - shell_command:
           - cd /tmp
           - rm -Rf DIRACCertif
@@ -21,16 +24,11 @@ windows:
     layout: tiled
     panes:
       - shell_command:
-          - sleep 5
-          - conda activate dirac-development
-          - git clone --single-branch --branch integration git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/dev/DIRAC
-          - git clone --single-branch --branch rel-v8r0 git@github.com:DIRACGrid/DIRAC.git /tmp/DIRACCertif/prod/DIRAC
-          - cd /tmp/DIRACCertif/dev/DIRAC
+          - cd ~/Devs/DIRACGrid/DIRAC/
+          - vi
       - shell_command:
-          - sleep 5
-          - git clone --single-branch --branch main git@github.com:DIRACGrid/diracx.git /tmp/DIRACCertif/diracx
-          - pixi shell
-          - cd /tmp/DIRACCertif/diracx
+          - cd ~/Devs/DIRACGrid/DIRAC/
+          - git s
 
   - window_name: clients
     layout: tiled
@@ -38,7 +36,7 @@ windows:
       - shell_command:
           - sleep 60
           - docker container rm DIRAC_certif_client_dev
-          - docker run -it --name DIRAC_certif_client_dev --mount type=bind,source=/tmp/DIRACCertif/dev/DIRAC,target=/code/DIRAC  --mount type=bind,source=/tmp/DIRACCertif/diracx,target=/code/diracx almalinux
+          - docker run -it --name DIRAC_certif_client_dev --mount type=bind,source=/home/fstagni/Devs/DIRACGrid/DIRAC,target=/code/DIRAC  --mount type=bind,source=/home/fstagni/Devs/DIRACGrid/diracx,target=/code/diracx almalinux
           - PS1="\[\033[42m\]\[\033[31m\]\u@DEV_CLIENT\[\033[00m\] $ " && export GIT_SSL_NO_VERIFY=1 && mkdir client && cd client && curl -LO https://github.com/DIRACGrid/DIRACOS2/releases/latest/download/DIRACOS-Linux-$(uname -m).sh && bash DIRACOS-Linux-$(uname -m).sh && rm -Rf DIRACOS-Linux-$(uname -m).sh && source diracos/diracosrc && cd .. && pip install -e /code/DIRAC/  && pip install -e /code/diracx && mkdir ~/.globus
       - shell_command:
           - sleep 60

@@ -42,3 +42,6 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+# opencode
+fish_add_path /home/fstagni/.opencode/bin
