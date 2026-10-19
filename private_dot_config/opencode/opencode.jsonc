@@ -1,0 +1,40 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  // Default model, served by the CERN AI Gateway (change with /models).
+  "model": "cern/glm-5.3-flash-int4",
+  "providers": {
+    "cern": {
+      "name": "CERN AI Gateway",
+      "env": ["CERN_AIGW_API_KEY"],
+      "package": "@opencode/ai/providers/openai-compatible",
+      "settings": {
+        // The gateway exposes OpenAI-compatible endpoints at the root,
+        // e.g. https://aigw.cern.ch/chat/completions
+        "baseURL": "https://aigw.cern.ch",
+      },
+      // Public models from https://ml.docs.cern.ch/aigw/models/
+      "models": {
+        "glm-5.3-flash-int4": {
+          "name": "GLM 5.3 Flash (INT4)",
+          "limit": { "context": 1048576 },
+        },
+        "qwen3.8-27b-fp16": {
+          "name": "Qwen 3.8 27B (FP16)",
+          "limit": { "context": 131072 },
+        },
+        "hf-qwen3-32b-awq": {
+          "name": "Qwen 3 32B (AWQ)",
+          "limit": { "context": 16384 },
+        },
+        "gpt-oss-20b": {
+          "name": "GPT OSS 20B",
+          "limit": { "context": 32768 },
+        },
+        "gemma-4-12b-it-qat-w4a16-ct": {
+          "name": "Gemma 4 12B IT (QAT W4A16)",
+          "limit": { "context": 131072 },
+        },
+      },
+    },
+  },
+}
